@@ -1,3 +1,14 @@
+.logo { 
+    font-size: 1.6rem; 
+    font-weight: 800; 
+    color: #2d3436; 
+    text-transform: uppercase; 
+}
+
+.logo span { 
+    color: #e74c3c; 
+}
+
 /* =========================
    13. CHECKOUT BUTTON
 ========================= */
