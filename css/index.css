@@ -338,20 +338,3 @@ header {
 .btn-quick-view:hover {
     background: #dfe4ea;
 }
-
-
-/* =========================
-   13. CHECKOUT BUTTON
-========================= */
-.checkout-btn {
-    background: linear-gradient(135deg, #d70a9d, #f31111);
-    color: white !important;
-    padding: 12px 25px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-.checkout-btn:hover {
-    transform: translateY(-3px);
-}

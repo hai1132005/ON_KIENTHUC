@@ -1,0 +1,32 @@
+/* =========================
+   13. CHECKOUT BUTTON
+========================= */
+.checkout-btn {
+    background: linear-gradient(135deg, #3b0ce4, #1b08e6);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+/* Khi đã click */
+.checkout-btn:visited {
+    color: white;
+}
+
+/* Khi hover */
+.checkout-btn:hover {
+    color:white;
+    background : red;
+}
+
+/* Khi đang bấm */
+.checkout-btn:active {
+    color: white;
+}
+
+/* Khi focus (rất hay gây lỗi màu) */
+.checkout-btn:focus {
+    color: white;
+    outline: none;
+}
