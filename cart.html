@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng của bạn</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .cart-container { padding: 50px 10%; }
+        .cart-table { width: 100%; border-collapse: collapse; background: white; }
+        .cart-table th, .cart-table td { padding: 15px; border-bottom: 1px solid #ddd; text-align: left; }
+        .total-section { text-align: right; margin-top: 20px; font-size: 1.5rem; }
+        .checkout-btn { background: #27ae60; color: white; padding: 15px 30px; border: none; cursor: pointer; float: right; margin-top: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer">
+            Phone<span>Store</span>
+        </div>
+       <button onclick="window.location.href='index.html'" class="checkout-btn">
+    Quay lại mua sắm
+</button>
+    </header>
+
+    <div class="cart-container">
+        <h2>Giỏ hàng của bạn</h2>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="cartItems">
+                </tbody>
+        </table>
+
+        <div class="total-section">
+            Tổng cộng: <span id="totalPrice" style="color: #e74c3c; font-weight: bold;">0₫</span>
+        </div>
+        <button class="checkout-btn" onclick="checkout()">Thanh toán ngay</button>
+    </div>
+
+    <script src="js/cart.js"></script>
+</body>
+</html>

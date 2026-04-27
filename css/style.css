@@ -1,0 +1,357 @@
+/* =========================
+   1. RESET & GLOBAL
+========================= */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+}
+
+body { 
+    background-color: #f8f9fa;
+    color: #2d3436;
+}
+
+
+/* =========================
+   2. HEADER
+========================= */
+header {
+    background: #fff; 
+    padding: 1rem 5%; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    position: sticky; 
+    top: 0; 
+    z-index: 100;
+}
+
+.logo { 
+    font-size: 1.6rem; 
+    font-weight: 800; 
+    color: #2d3436; 
+    text-transform: uppercase; 
+}
+
+.logo span { 
+    color: #e74c3c; 
+}
+
+
+/* =========================
+   3. SEARCH BOX
+========================= */
+.search-box { 
+    display: flex; 
+    width: 45%; 
+    background: #f1f2f6; 
+    border-radius: 25px; 
+    padding: 3px 5px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.search-box:focus-within {
+    background: #fff;
+    border-color: #e74c3c;
+    box-shadow: 0 0 8px rgba(231, 76, 60, 0.2);
+}
+
+.search-box input { 
+    flex: 1; 
+    padding: 10px 15px; 
+    border: none; 
+    background: transparent; 
+    outline: none; 
+    font-size: 0.95rem;
+}
+
+.search-box button { 
+    padding: 10px 20px; 
+    background: #e74c3c; 
+    color: white; 
+    border: none; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    transition: 0.3s;
+}
+
+.search-box button:hover { 
+    background: #c0392b; 
+    transform: scale(1.05); 
+}
+
+
+/* =========================
+   4. HEADER ICON (GIỎ HÀNG)
+========================= */
+.header-icons .cart-btn {
+    position: relative;
+    font-size: 1.5rem;
+    color: #2f3542;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#cart-count {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background: #ff4757;
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 7px;
+    border-radius: 50%;
+    font-weight: bold;
+    border: 2px solid #fff;
+}
+
+
+/* =========================
+   5. LAYOUT CHÍNH
+========================= */
+.container { 
+    display: flex; 
+    padding: 30px 5%; 
+    gap: 30px; 
+}
+
+.content { 
+    flex: 1; 
+}
+
+
+/* =========================
+   6. SIDEBAR
+========================= */
+.sidebar { 
+    width: 280px; 
+    background: white; 
+    padding: 25px; 
+    border-radius: 15px; 
+    height: fit-content;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    position: sticky;
+    top: 100px;
+}
+
+.sidebar h2, .sidebar h3 { 
+    margin-bottom: 20px; 
+    font-size: 1.1rem; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-left: 4px solid #e74c3c;
+    padding-left: 12px;
+}
+
+.sidebar ul { 
+    list-style: none; 
+}
+
+.sidebar ul li { 
+    padding: 12px 15px; 
+    cursor: pointer; 
+    border-radius: 8px;
+    margin-bottom: 5px;
+    color: #57606f;
+    transition: 0.3s;
+}
+
+.sidebar ul li:hover { 
+    background: #fff5f5; 
+    color: #e74c3c; 
+    padding-left: 20px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   7. FILTER GIÁ
+========================= */
+.price-filter { 
+    margin-top: 20px; 
+}
+
+#priceRange {
+    width: 100%;
+    height: 6px;
+    background: #dfe4ea;
+    border-radius: 5px;
+    outline: none;
+    accent-color: #e74c3c;
+}
+
+.btn-filter-price {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #2d3436;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-filter-price:hover {
+    background: #e74c3c;
+    transform: scale(1.02);
+}
+
+
+/* =========================
+   8. PRODUCT GRID
+========================= */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+    gap: 30px; 
+}
+
+
+/* =========================
+   9. PRODUCT CARD
+========================= */
+.product-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f1f2f6;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transition: transform 0.4s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+
+/* Badge giảm giá */
+.discount-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, #ff4757, #ff6b81);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+
+/* =========================
+   10. IMAGE
+========================= */
+.product-img-wrapper {
+    height: 240px;
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: 0.5s;
+}
+
+.product-card:hover img {
+    transform: scale(1.1);
+}
+
+
+/* =========================
+   11. PRODUCT INFO
+========================= */
+.product-info {
+    padding: 20px;
+    border-top: 1px solid #f1f2f6;
+}
+
+.product-brand {
+    font-size: 0.75rem;
+    color: #a4b0be;
+    font-weight: 700;
+}
+
+.product-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.price-current {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #e74c3c;
+}
+
+.price-old {
+    font-size: 0.9rem;
+    text-decoration: line-through;
+    color: #ced6e0;
+}
+
+
+/* =========================
+   12. BUTTON ACTION
+========================= */
+.product-action {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-add-cart {
+    flex: 1;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-add-cart:hover {
+    filter: brightness(1.1);
+}
+
+.btn-quick-view {
+    width: 45px;
+    background: #f1f2f6;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-quick-view:hover {
+    background: #dfe4ea;
+}
+
+
+/* =========================
+   13. CHECKOUT BUTTON
+========================= */
+.checkout-btn {
+    background: linear-gradient(135deg, #d70a9d, #f31111);
+    color: white !important;
+    padding: 12px 25px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.checkout-btn:hover {
+    transform: translateY(-3px);
+}

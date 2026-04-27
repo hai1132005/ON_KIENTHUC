@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhoneStore - Thế giới công nghệ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Phone<span>Store</span></div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm điện thoại...">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="header-icons">
+            <a href="cart.html" class="cart-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li onclick="filterProduct('all')">Tất cả sản phẩm</li>
+                <li onclick="filterProduct('Apple')">iPhone</li>
+                <li onclick="filterProduct('Samsung')">Samsung</li>
+                <li onclick="filterProduct('Oppo')">Oppo</li>
+                <li onclick="filterProduct('Xiaomi')">Xiaomi</li>
+            </ul>
+            <div class="price-filter">
+                <h3>Mức giá</h3>
+                <input type="range" min="0" max="50" step="1" value="50" id="priceRange">
+                <button onclick="filterByPrice()" class="btn-filter-price">Áp dụng lọc giá</button>
+                <p>Dưới: <span id="priceValue">50</span> triệu</p>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="content-header">
+                <h2>Sản phẩm nổi bật</h2>
+            </div>
+            <div class="product-grid" id="productGrid"></div>
+        </main>
+    </div>
+
+    <script>
+        const range = document.getElementById("priceRange");
+        const value = document.getElementById("priceValue");
+
+        if(range && value) {
+            range.addEventListener("input", function() {
+                value.textContent = range.value;
+                // Nếu bạn có hàm lọc theo giá, hãy gọi nó ở đây
+                // filterByPrice(range.value * 1000000); 
+            });
+        }
+    </script>
+        
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
