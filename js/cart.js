@@ -78,20 +78,32 @@ function saveAndRender() {
 
 // 7. THANH TOÁN
 function checkout() {
-
-    // Kiểm tra giỏ hàng
-    if (cart.length === 0) {
-        alert("Giỏ hàng của bạn đang trống!");
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (!user) {
+        alert("Vui lòng đăng nhập trước khi thanh toán!");
+        window.location.href = 'login.html';
         return;
     }
+    if (cart.length === 0) return alert("Giỏ hàng trống!");
 
-    // Thông báo
-    alert("Cảm ơn bạn đã đặt hàng! Đơn hàng đang được xử lý.");
+    // Tính tổng tiền
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-    // Xóa giỏ hàng
-    localStorage.removeItem('CART');
-
-    window.location.href = 'index.html';
+    fetch('http://localhost:3000/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            username: user.username,
+            cart: cart,
+            totalPrice: total
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        localStorage.removeItem('CART'); // Xóa giỏ hàng local sau khi lưu DB thành công
+        window.location.href = 'index.html';
+    });
 }
 
 // 8. KHỞI TẠO (LOAD TRANG)

@@ -11,10 +11,16 @@
 
     <header>
         <div class="logo">Phone<span>Store</span></div>
+        <div class="header-icons">
+    <span id="user-info" style="margin-right: 15px; font-weight: 600;"></span>
+    <a href="login.html" id="login-link">Đăng nhập</a>
+    
+    </div>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Tìm kiếm điện thoại...">
             <button><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
+        <div><a href="#" id="logout-link" style="display: none;" onclick="logout()">Đăng xuất</a></div>
         <div class="header-icons">
             <a href="cart.html" class="cart-btn">
                 <i class="fa-solid fa-cart-shopping"></i>
@@ -41,6 +47,7 @@
             </div>
         </aside>
 
+
         <main class="content">
             <div class="content-header">
                 <h2>Sản phẩm nổi bật</h2>
@@ -48,7 +55,33 @@
             <div class="product-grid" id="productGrid"></div>
         </main>
     </div>
-
+<div id="quickViewModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div class="modal-body">
+            <div class="modal-img-container">
+                <img id="modalProductImg" src="" alt="">
+            </div>
+            <div class="modal-info-container">
+                <p id="modalProductBrand" class="product-brand"></p>
+                <h2 id="modalProductName"></h2>
+                <p id="modalProductPrice" class="price-current"></p>
+                
+                <div class="product-specs">
+                    <h3>Thông số kỹ thuật:</h3>
+                    <ul>
+                        <li>Màn hình: Siêu nét, tần số quét cao</li>
+                        <li>Hệ điều hành: Mới nhất</li>
+                        <li>Đặc điểm: Cấu hình mạnh mẽ, camera sắc nét</li>
+                    </ul>
+                </div>
+                
+                <div id="modalActionContainer">
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
     <script>
         const range = document.getElementById("priceRange");
         const value = document.getElementById("priceValue");
