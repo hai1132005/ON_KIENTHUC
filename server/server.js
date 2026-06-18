@@ -38,13 +38,22 @@ app.post('/api/register', (req, res) => {
 });
 
 // --- API 2: ĐĂNG NHẬP ---
+// Thay thế đoạn API login cũ trong server.js của bạn:
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
-    const sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+    const sql = "SELECT username, role FROM users WHERE username = ? AND password = ?"; // Lấy thêm cột role
+    
     db.query(sql, [username, password], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
+        
         if (results.length > 0) {
-            res.json({ message: 'Đăng nhập thành công!', user: { username: results[0].username } });
+            res.json({ 
+                message: 'Đăng nhập thành công!', 
+                user: { 
+                    username: results[0].username, 
+                    role: results[0].role // Trả quyền hạn về Frontend xử lý
+                } 
+            });
         } else {
             res.status(400).json({ message: 'Sai tài khoản hoặc mật khẩu!' });
         }
@@ -69,6 +78,38 @@ app.post('/api/checkout', (req, res) => {
         db.query(sqlDetails, [values], (errDetail) => {
             if (errDetail) return res.status(500).json({ error: errDetail.message });
             res.json({ message: 'Đặt hàng và lưu vào MySQL thành công!' });
+        });
+    });
+});
+
+// --- API: TIẾP NHẬN SẢN PHẨM MỚI TỪ TRANG ADMIN VÀ LƯU VÀO MYSQL ---
+app.post('/api/products', (req, res) => {
+    const { name, price, brand, img, specs } = req.body;
+    
+    // Câu lệnh SQL chèn dữ liệu vào bảng sản phẩm (đầy đủ các cột thông số cấu hình)
+    const sql = `INSERT INTO products (name, price, brand, img, screen, chip, ram, storage) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+                 
+    const values = [
+        name, 
+        price, 
+        brand, 
+        img, 
+        specs.screen, 
+        specs.chip, 
+        specs.ram, 
+        specs.storage
+    ];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error("Lỗi MySQL khi chèn sản phẩm:", err);
+            return res.status(500).json({ error: "Lỗi lưu trữ cơ sở dữ liệu!" });
+        }
+        // Trả về phản hồi thành công kèm theo ID tự động tăng của sản phẩm đó
+        res.json({ 
+            message: 'Thêm sản phẩm mới vào hệ thống MySQL thành công!', 
+            productId: result.insertId 
         });
     });
 });

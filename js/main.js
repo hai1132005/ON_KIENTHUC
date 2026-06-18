@@ -168,23 +168,40 @@ function closeModal() {
 
 // Kiểm tra trạng thái phiên đăng nhập hiện tại để cập nhật giao diện Header
 function checkLogin() {
-    const user = JSON.parse(localStorage.getItem('currentUser'));
+    // Đọc thẳng 2 giá trị text thuần túy từ localStorage
+    const username = localStorage.getItem('username');
+    const role = localStorage.getItem('role');
+
     const userInfo = document.getElementById('user-info');
     const loginLink = document.getElementById('login-link');
     const logoutLink = document.getElementById('logout-link');
 
-    if (user) {
-        if (userInfo) userInfo.innerText = `Chào, ${user.username}`;
+    if (username) {
+        if (userInfo) {
+            if (role === 'admin') {
+                userInfo.innerHTML = `Chào, ${username} | <a href="admin.html" style="color: #3498db; font-weight: bold;">[Vào Trang Admin]</a>`;
+            } else {
+                userInfo.innerText = `Chào, ${username}`;
+            }
+        }
         if (loginLink) loginLink.style.display = 'none';
         if (logoutLink) logoutLink.style.display = 'inline';
+    } else {
+        if (loginLink) loginLink.style.display = 'inline';
+        if (logoutLink) logoutLink.style.display = 'none';
     }
 }
 
-// Đăng xuất và xóa trạng thái người dùng khỏi bộ nhớ local
+// Sửa luôn hàm logout() bên dưới cho đồng bộ sạch sẽ dữ liệu cũ:
 function logout() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    localStorage.removeItem('currentUser'); 
     window.location.reload();
 }
+
+// Đăng xuất và xóa trạng thái người dùng khỏi bộ nhớ local
+
 
 // ==========================================================================
 // 7. KHỞI CHẠY HỆ THỐNG ĐỒNG BỘ (INITIALIZATION)

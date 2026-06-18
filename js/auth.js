@@ -1,6 +1,6 @@
-// =========================
-// 1. ĐĂNG KÝ
-// =========================
+// ==========================================================================
+// 1. CHỨC NĂNG ĐĂNG KÝ
+// ==========================================================================
 const registerForm = document.getElementById('registerForm');
 
 if (registerForm) {
@@ -11,14 +11,14 @@ if (registerForm) {
         const password = document.getElementById('regPassword').value;
         const confirmPassword = document.getElementById('regConfirmPassword').value;
 
-        // --- Validate ---
+        // --- Kiểm tra mật khẩu khớp ---
         if (password !== confirmPassword) {
-            alert("Mật khẩu không khớp!");
+            alert("Mật khẩu xác nhận không khớp!");
             return;
         }
 
         try {
-            // --- Gửi lên backend ---
+            // --- Gửi thông tin đăng ký lên backend ---
             const res = await fetch('http://localhost:3000/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -26,32 +26,28 @@ if (registerForm) {
             });
 
             const data = await res.json();
-
             alert(data.message);
 
-            // --- Thành công thì chuyển trang ---
+            // --- Đăng ký thành công -> Chuyển sang trang Đăng nhập ---
             if (res.ok) {
                 window.location.href = 'login.html';
             }
 
         } catch (err) {
-            alert("Lỗi kết nối server!");
+            alert("Lỗi kết nối server đăng ký!");
             console.error(err);
         }
     });
 }
 
-
-
-// =========================
-// 2. ĐĂNG NHẬP
-// =========================
+// ==========================================================================
+// 2. CHỨC NĂNG ĐĂNG NHẬP (PHÂN QUYỀN)
+// ==========================================================================
 const loginForm = document.getElementById('loginForm');
 
 if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const username = document.getElementById('loginUsername').value;
         const password = document.getElementById('loginPassword').value;
 
@@ -64,20 +60,24 @@ if (loginForm) {
 
             const data = await res.json();
 
-            if (!res.ok) {
-                throw new Error(data.message);
-            }
+            if (!res.ok) throw new Error(data.message || "Đăng nhập thất bại!");
 
-            // --- Lưu user ---
-            localStorage.setItem('currentUser', JSON.stringify(data.user));
-
+            // CẢI TIẾN: Lưu tách rời 2 chuỗi text thuần túy để trình duyệt không bị lỗi ghi nhớ
+            localStorage.setItem('username', data.user.username);
+            localStorage.setItem('role', data.user.role);
+            
             alert(data.message);
 
-            // --- Chuyển trang ---
-            window.location.href = 'index.html';
+            // Kiểm tra quyền hạn trực tiếp để điều hướng trang
+            if (data.user.role === 'admin') {
+                window.location.href = 'admin.html'; // Chuyển thẳng vào trang quản lý
+            } else {
+                window.location.href = 'index.html'; // Vào trang mua sắm
+            }
 
         } catch (err) {
-            alert(err.message || "Đăng nhập thất bại!");
+            alert(err.message);
+            console.error(err);
         }
     });
 }
